@@ -1,0 +1,90 @@
+TERMINATE CHALLENGE
+- funzione terminateChallenge quando finisco di rispondere alle domande (mainMenu -> cc -> h )
+    - rende il sender di nuovo available
+    - quando c1 termina le sue domande manda terminateChallenge al server, entra in challenge mode e setta availability
+    - quando c2 termina le domande succede la stessa cosa.
+       quando però scatta il timer la challenge diventa inattiva, senza inviare una forward
+        se si richiede una question ad una challenge inattiva parte la
+       terminatechallenge
+
+SISTEMA DI PUNTEGGI
+    - Y punti negativi sbagliando una risposta
+    - X punti positivi azzeccando una risposta
+    - Z punti extra quando si vince la partita
+
+
+- quando scatta il timer di accettazione c2 rimane unavailable.
+    - posso renderlo available una volta inviata la cancel.
+
+- allo scadere del challenge timer ricevo una forward... che cazz è?
+
+
+
+
+
+
+
+
+
+
+
+
+
+CHALLENGE
+    - creare un thread timer
+
+    mi serve un modo per estrapolare la chiusura del jdialog che creo,
+
+GESTIONE SFIDE
+    c1 -> h1        CHALLENGE
+    h1 -> udp       FORWARD
+    c2 -> h2        READY
+    h2 -> udp       BEGIN
+
+    c1 -> h1        CHALLENGE
+    h1 -> udp       FORWARD
+    c2 -> h2        CANCEL
+    h2 -> udp       CANCEL
+
+
+    - il cancel deve essere spedito al server da c2, così che non venga inviato il secondo cancel dallo scadere del timer.
+    - dopo essere scattato il timer deve essere impossibile accettare la sfida
+    - datagrammi vengono inviati due volte
+    - i messaggi spesso sono NULL
+
+
+INIZIO SFIDA
+
+creazione servizio udp di richiesta e risposta
+    posso provare a fare un canale multicast per cui tutte le persone in ascolto possano ricevere gli inviti
+    se l'invito è rivolto a loro viene processato e vengono spedite le domande
+
+
+ ---------------------------------------------------------------------------------
+
+MECCANISMO LOGOUT
+    - posso integrarlo alla chiusura del main menu  done
+    - rimuove l'utente dalla hashmap    done
+    - bisogna far sì che l'utente si possa scollegare dal servizio e ri-loggare in seguito  done
+    - showmessage nella gui del server quando un utente si disconnette  done
+
+
+ MECCANISMO LOGIN
+     - struttura dati concorrente, nel controlserver, che contiene il nome degli utenti loggati in quel momento      done
+         - concurrentHashMap <String,Boolean>                                                                        done
+      - deve essere impossibile fare il login due volte                                                              done
+      - deve essere impossibile sfidare un utente che non sia online
+          - FUNZIONE IS_ONLINE
+
+
+aggiungere il tasto aggiorna............done
+    richiede al server userData aggiornati...........done
+    li mostra nel main menu.............done
+    legge gli inviti di amicizia richiesti e li elimina dall'userData nel server
+
+
+
+creare la funzione aggiunta amici.........done
+    errore se
+        amicizia esiste..............done
+        nickname non registrato...........done
